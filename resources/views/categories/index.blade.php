@@ -63,7 +63,7 @@
 
                             @if (session('success'))
                                 @alert(['type' => 'success'])
-                                {{!! session('success') !!}}
+                                {!! session('success') !!}
                                 @endalert
                             @endif
 

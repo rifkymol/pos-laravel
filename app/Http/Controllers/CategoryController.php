@@ -12,4 +12,61 @@ class CategoryController extends Controller
         $categories = Category::orderBy('created_at', 'DESC')->paginate(10);
         return view('categories.index', compact('categories'));
     }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:50',
+            'description' => 'nullable|string'
+        ]);
+
+        try {
+            $categories = Category::firstOrCreate([
+                'name' =>   $request->name
+            ], [
+                'description' => $request->description
+            ]);
+            return redirect()->back()->with(['success' => 'Kategori: ' . $categories->name . ' Ditambahkan']);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $categories = Category::findOrFail($id);
+        $categories->delete();
+        return redirect()->back()->with(['success' => 'Kategori: ' . $categories->name . ' Berhasil dihapus!']);
+    }
+
+    public function edit($id)
+    {
+        $categories = Category::findOrFail($id);
+        return view('categories.edit', compact('categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:50|unique:categories',
+            'description' => 'nullable|string'
+        ]);
+
+        try {
+            //select data berdasarkan id
+            $categories = Category::findOrFail($id);
+            //update data
+            $categories->update([
+                'name' => $request->name,
+                'description' => $request->description
+            ]);
+            
+            //redirect ke route kategori.index
+            //jika berhasil akan meredirect ke index kategori dan membuat flash masage sukses!
+            return redirect(route('kategori.index'))->with(['success' => 'Kategori: ' . $categories->name . ' Ditambahkan']);
+        } catch (\Exception $e) {
+            //Jika gagal, redirect ke form yang sama lalu membuat flash massage error
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
 }
