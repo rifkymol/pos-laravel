@@ -12,9 +12,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    protected $fillable = [
-        'code', 'name', 'description', 'stock', 'price', 'category_id'
-    ];
+    // protected $fillable = [
+    //     'code', 'name', 'description', 'stock', 'price', 'category_id'
+    // ];
 
-    // protected $guarded = [];
+    protected $guarded = [];
 }

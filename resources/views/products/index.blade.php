@@ -55,7 +55,8 @@
                                         <tr>
                                             <td>
                                                 @if (!empty($row->photo))
-                                                    <img src="{{ asset('uploads/product/' . $row->photo) }}" alt="{{ $row->name }}"         width="50px" height="50px">
+                                                    <img src="{{ asset('uploads/product/' . $row->photo) }}" alt="{{ $row->name }}"
+                                                        width="50px" height="50px">
                                                 @else
                                                     <img src="http://via.placeholder.com/50x50" alt="{{ $row->name }}">
                                                 @endif
