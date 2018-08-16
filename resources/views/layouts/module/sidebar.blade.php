@@ -50,6 +50,20 @@
                                 <p>Produk</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                <i class="nav-icon fa fa-sign-out"></i>
+                                <p>
+                                    {{ __('Log Out') }}
+                                </p>
+                            </a>
+
+                            <form action="{{ route('logout') }}" id="logout-form" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>
